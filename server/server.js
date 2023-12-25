@@ -24,3 +24,7 @@ app.use("/api", routes);
 app.listen(port, () => {
   console.log(`Server listen at ${port} port`);
 });
+
+
+
+// ctrl + d => used for selecting all word of same name 
