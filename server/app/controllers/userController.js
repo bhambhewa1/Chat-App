@@ -60,8 +60,13 @@ const loginUser = async (req, res) => {
 const findUser = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const user = await userModel.findOne({ _id: userId });
+    const user = await userModel.findOne({ _id: userId }).lean();
+    // lean() method convert mongoose object into plain javaScript object then easy to change
+    // _id is immutable, so if you want to change it then convert its object to plain javaScript
+    user.userId = user._id;
+    delete user._id;
     delete user.password;
+    delete user.__v;
     res.json(user);
   } catch (error) {
     console.log(error);
@@ -70,16 +75,16 @@ const findUser = async (req, res) => {
 };
 
 const getUsers = async (req, res) => {
-    try {
-      const users = await userModel.find();
-      users = users.map((user,ind) => {
-        delete user.password;
-      })
-      res.json(users);
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({ Error: error });
-    }
-  };
+  try {
+    const users = await userModel.find();
+    users = users.map((user, ind) => {
+      delete user.password;
+    });
+    res.json(users);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ Error: error });
+  }
+};
 
 module.exports = { registerUser, loginUser, findUser, getUsers };

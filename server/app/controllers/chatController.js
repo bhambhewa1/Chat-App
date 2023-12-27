@@ -1,53 +1,54 @@
-const chatModel = require('../models/chatModel')
+const chatModel = require("../models/chatModel");
 
 // createChat
 // findUserChat
 // findChat
 
 const createChat = async (req, res) => {
-    try {
-        const { firstId, secondId } = req.body;
-        let chat = chatModel.findOne({
-            members: { $all: { firstId, secondId } }
-        })
-        if (chat) return res.json(chat);
+  try {
+    const { firstId, secondId } = req.body;
 
-        const newChat = chatModel({ members: { firstId, secondId } });
-        chat = await newChat.save();
-        res.json(chat);
+    let chat = await chatModel.findOne({
+      members: { $all: { firstId, secondId } },
+    });
+    if (chat) return res.json(chat);
 
-    } catch (error) {
-        console.log("error", error);
-        res.status(500).json({ Error: error });
-    }
-}
+    const newChat = new chatModel({ members: [firstId, secondId] });
+    chat = await newChat.save();
+    res.json(chat);
+  } catch (error) {
+    console.log("error", error);
+    res.status(500).json({ Error: error });
+  }
+};
 
 const findUserChat = async (req, res) => {
-    try {
-        const userId = req.params.userId;
-        let chats = chatModel.findOne({
-            members: { $in: userId }
-        })
-        res.json(chats);
-
-    } catch (error) {
-        console.log("error", error);
-        res.status(500).json({ Error: error });
-    }
-}
+  try {
+    const userId = req.params.userId;
+    let chats = await chatModel.find({
+      members: { $in: userId },
+    });    
+    // lean() method convert mongoose object into plain javaScript object then easy to change
+    // _id is immutable, so if you want to change it then convert its object to plain javaScript
+ 
+    res.json(chats);
+  } catch (error) {
+    console.log("error", error);
+    res.status(500).json({ Error: error });
+  }
+};
 
 const findChat = async (req, res) => {
-    try {
-        const { firstId, secondId } = req.params;
-        let chat = chatModel.findOne({
-            members: { $all: { firstId, secondId } }
-        })
-        res.json(chat);
-
-    } catch (error) {
-        console.log("error", error);
-        res.status(500).json({ Error: error });
-    }
-}
+  try {
+    const { firstId, secondId } = req.params;
+    let chat = await chatModel.findOne({
+      members: { $all: { firstId, secondId } },
+    });
+    res.json(chat);
+  } catch (error) {
+    console.log("error", error);
+    res.status(500).json({ Error: error });
+  }
+};
 
 module.exports = { createChat, findUserChat, findChat };
