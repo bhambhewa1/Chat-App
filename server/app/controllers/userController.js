@@ -76,10 +76,13 @@ const findUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
   try {
-    const users = await userModel.find();
-    users = users.map((user, ind) => {
-      delete user.password;
-    });
+    let users = await userModel.find().lean();
+
+    // users = users.map((user, ind) => {
+    //   delete user.password;
+    //   delete user.__v;
+    //   return user;
+    // });
     res.json(users);
   } catch (error) {
     console.log(error);

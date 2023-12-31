@@ -7,6 +7,7 @@ const NavBar = () => {
   const logOut = () => {
     localStorage.removeItem("user");
     navigate("/login");
+    window.location.reload();
   };
 
   return (
@@ -48,7 +49,7 @@ const NavBar = () => {
             minHeight: "40px",
           }}
         >
-          <span>Logged in {user.name}</span>
+          <span>Logged in as {user.name}</span>
           <div
             style={{
               width: "45%",
