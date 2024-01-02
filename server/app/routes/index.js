@@ -6,7 +6,7 @@ const message = require('../controllers/messageController');
 
 router.post('/user/registeration', user.registerUser);
 router.post('/user/login', user.loginUser);
-router.get('/user/find/:userId', user.findUser);    // used to get messages of particular user
+router.get('/user/find/:userId', user.findUser);    // used to get a particular user for getting messages
 router.get('/user/getUsers', user.getUsers);      // used to create chatting with each user and showing all users on top of screen in UI
 
 router.post('/chat/create', chat.createChat);  // used to create chat between one of them user(which are on top of screen in UI)

@@ -15,7 +15,6 @@ const createChat = async (req, res) => {
 
     const newChat = new chatModel({ members: [firstId, secondId] });
     chat = await newChat.save();
-    console.log("ram")
     res.json(chat);
   } catch (error) {
     console.log("error", error);
