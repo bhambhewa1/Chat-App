@@ -5,7 +5,7 @@ const NavBar = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
   const logOut = () => {
-    localStorage.removeItem("user");
+    localStorage.clear();
     navigate("/login");
     window.location.reload();
   };
@@ -16,8 +16,8 @@ const NavBar = () => {
         <div
           style={{
             background: "lightcyan",
-            padding:"15px",
-            paddingBottom:"0px",
+            padding: "15px",
+            paddingBottom: "0px",
             display: "flex",
             justifyContent: "flex-end",
             minHeight: "40px",
@@ -42,8 +42,8 @@ const NavBar = () => {
         <div
           style={{
             background: "lightcyan",
-            padding:"15px",
-            paddingBottom:"0px",
+            padding: "15px",
+            paddingBottom: "0px",
             display: "flex",
             justifyContent: "flex-end",
             minHeight: "40px",

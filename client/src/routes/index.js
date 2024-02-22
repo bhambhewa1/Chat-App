@@ -17,17 +17,15 @@ const Index = () => {
 
   return (
     <>
-      <div sx={{ width: "100%", bgcolor: "white" }}>
+      {/* <div sx={{ width: "100%", bgcolor: "white" }}> */}
         <Routes>
-          {/* <Route path="/" element={user ? <Chat /> : <Login />} />
-            <Route path="/login" element={user ? <Chat /> : <Login />} />
-            <Route path="/register" element={user ? <Chat /> : <Register />} /> */}
           <Route path="/" element={<ProtectedRoute element={<Chat />} />} />
+          {/* <Route path="/" element={<Chat />} /> */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-      </div>
+      {/* </div> */}
     </>
   );
 };
